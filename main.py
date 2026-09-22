@@ -51,6 +51,7 @@ def get_video_information(video_id, series_id, cookies):
 
 def download_videos(video_id, series_id, cookies, i, dir_name):
     video_name, video_url = get_video_information(video_id, series_id, cookies)
+    video_name = video_name.replace("\\", " ").replace("/", " ")
     filename = f"{i}-{video_name}"
     filepath = f"{dir_name}/{filename}.mp4"
     file = Path(filepath)
@@ -76,7 +77,7 @@ def main():
     check_series_id(series_id)
     content_id_list = get_content_id_list(cookies, series_id)
     series_name = get_series_name(content_id_list[-1], series_id, cookies)
-    dir_name = f"D:/{series_name}"
+    dir_name = f"./{series_name}"
     dir_path = Path(dir_name)
     dir_path.mkdir(parents=True, exist_ok=True)
     print(f"即将要下载的是:    {series_id}")
